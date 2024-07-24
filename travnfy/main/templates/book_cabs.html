@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Cabs</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var today = new Date().toISOString().split('T')[0];
+            $('#trip_date').attr('value', today);
+
+            $('#trip_type').change(function() {
+                var tripType = $(this).val();
+                if (tripType === 'two_way') {
+                    $('#return_date_field').show();
+                } else {
+                    $('#return_date_field').hide();
+                }
+            });
+
+            if ($('#trip_type').val() === 'two_way') {
+                $('#return_date_field').show();
+            } else {
+                $('#return_date_field').hide();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About Us</a>
+        <div class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Make a Booking</a>
+            <div class="dropdown-content">
+                <a href="{% url 'book_flights' %}">Book Flights</a>
+                <a href="{% url 'book_cabs' %}">Book Cabs</a>
+                <a href="{% url 'book_trains' %}">Book Trains</a>
+            </div>
+        </div>
+        <a href="{% url 'create_account' %}">Create Account</a>
+    </div>
+
+    <div class="container">
+        <h2>Book Cabs</h2>
+        <form method="post" action="{% url 'book_cabs' %}">
+            {% csrf_token %}
+            <label for="pickup_location">Pickup Location:</label>
+            <input type="text" id="pickup_location" name="pickup_location" required><br>
+
+            <label for="dropoff_location">Dropoff Location:</label>
+            <input type="text" id="dropoff_location" name="dropoff_location" required><br>
+
+            <label for="trip_date">Date of Trip:</label>
+            <input type="date" id="trip_date" name="trip_date" required><br>
+
+            <label for="trip_type">Trip Type:</label>
+            <select id="trip_type" name="trip_type" required>
+                <option value="one_way">One Way</option>
+                <option value="two_way">Two Way</option>
+            </select><br>
+
+            <div id="return_date_field" style="display: none;">
+                <label for="return_date">Return Date:</label>
+                <input type="date" id="return_date" name="return_date"><br>
+            </div>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Travnfy. All rights reserved.</p>
+    </div>
+</body>
+</html>

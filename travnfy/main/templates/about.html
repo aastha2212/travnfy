@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About Us</a>
+        <div class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Make a Booking</a>
+            <div class="dropdown-content">
+                <a href="{% url 'book_flights' %}">Book Flights</a>
+                <a href="{% url 'book_cabs' %}">Book Cabs</a>
+                <a href="{% url 'book_trains' %}">Book Trains</a>
+            </div>
+        </div>
+        <a href="{% url 'create_account' %}">Create Account</a>
+    </div>
+
+    <h1>About Us</h1>
+    <p>Information about Travnfy...</p>
+
+    <div class="footer">
+        <p>&copy; 2024 Travnfy. All rights reserved.</p>
+    </div>
+</body>
+</html>
